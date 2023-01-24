@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/24 15:24:54 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/24 18:09:10 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 int	ft_close_win(t_data *man)
 {
-	mlx_destroy_window(man->mlx, man->win);
+	if (KeyPress == XK_Escape)
+    {
+		mlx_destroy_window(man->mlx, man->win);
+	}
 	exit (0);
 }
 
@@ -63,4 +66,11 @@ double	ft_sqr_im(double z_im, double c_im)
 {
 	return (z_im * c_im);
 }
+
+// void	ft_zoom(t_data *man)
+// {
+// 	double	zoom;
+
+// 	zoom = 100;
+// }
 

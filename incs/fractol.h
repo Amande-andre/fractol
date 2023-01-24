@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:05:00 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/24 14:53:45 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:46:13 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <math.h>
 #include <limits.h>
 #include <stdio.h>
+#include "../mlx_linux/mlx_int.h"
 
 typedef struct	s_data {
 	void	*img;
@@ -34,6 +35,7 @@ typedef struct	s_data {
 	double	xmax;
 	double	ymin;
 	double	ymax;
+	double	h;
 }				t_data;
 
 typedef struct s_comp
