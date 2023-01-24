@@ -6,13 +6,13 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:05:00 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/21 15:05:11 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:53:45 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
-#define Y_LEN       1080
-#define X_LEN      ( Y_LEN + 100 )
+#define Y_LEN		1200
+#define X_LEN		(Y_LEN)
 
 # include  "../mlx_linux/mlx.h"
 # include <libft.h>
@@ -28,16 +28,18 @@ typedef struct	s_data {
 	int		endian;
 	void	*win;
 	void	*mlx;
-	int		x_len;
-	int		y_len;
-	int		top;
-	int		left;
+	int		x_pos;
+	int		y_pos;
+	double	xmin;
+	double	xmax;
+	double	ymin;
+	double	ymax;
 }				t_data;
 
 typedef struct s_comp
 {
-	long	real;
-	long	unreal;
+	double	re;
+	double	im;
 }				t_comp;
 
 
@@ -51,5 +53,10 @@ int		mlx_destroy_window(void *mlx_ptr, void *win_ptr);
 int		ft_close_win(t_data *man);
 int 	mlx_loop_end (void *mlx_ptr);
 int		ft_print_mande(t_data *man, int color);
-int		ft_conv(t_data *man, int x, int y);
+int		ft_conv(t_data *man, int i, int j);
+int		set_data_man(t_data *man);
+double	ft_sqr_re(double z_re, double c_re);
+double	ft_sqr_im(double z_im, double c_im);
+
+
 #endif

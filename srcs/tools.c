@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/21 15:06:33 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/24 15:24:54 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,38 @@ int	ft_close_win(t_data *man)
 	exit (0);
 }
 
-int	ft_conv(t_data *man, int x, int y)
+int	ft_conv(t_data *man, int i, int j)
 {
 	t_comp	z;
 	t_comp	c;
 	int		n;
-	long	tmp;
-
-	z.real = 0;
-	z.unreal = 0;
-	c.real = (man->left + x) * (man->x_len / X_LEN);
-	c.unreal = (man->top + y) * (man->y_len / Y_LEN);
+	t_comp	tmp;
 	n = 0;
-	while ((z.real * z.real) + (z.unreal * z.unreal) <= 4 && n < INT_MAX)
+	set_data_man(man);
+	z.re = 0;
+	z.im = 0;
+	//ici me permet de mettre mom pixel dans un plan orthonorme
+	c.re = man->xmin + i * (man->xmax - man->xmin) / X_LEN;
+	c.im = man->ymin + j * (man->ymax - man->ymin) / Y_LEN;
+	n = 0;
+	while ((z.re * z.re + z.im * z.im) <= 2 && n < 50)
 	{
-		tmp = 2 * z.real * z.unreal;
-		z.real = (z.real * z.real) - (z.unreal * z.unreal) + c.real;
-		z.unreal = tmp + c.unreal;
+		tmp.im = 2 * z.re * z.im + c.im;
+		tmp.re = z.re * z.re - z.im * z.im + c.re;
+		z.re = tmp.re;
+		z.im = tmp.im;
 		n++;
-		printf("1\n"); // Boucle infini ici!!!
-		//my_mlx_pixel_put(man->img, man->x_len, man->y_len, 0x0000FF);
 	}
 	return (n);
 }
+
+double	ft_sqr_re(double z_re, double c_re)
+{
+	return (z_re + c_re);
+}
+
+double	ft_sqr_im(double z_im, double c_im)
+{
+	return (z_im * c_im);
+}
+

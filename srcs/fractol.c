@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:04:37 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/21 15:05:49 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/24 15:29:01 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,38 @@
 
 int	ft_print_mande(t_data *man, int color)
 {
-	while (man->x_len < X_LEN)
+	double	i;
+	double	j;
+	int		n;
+
+	i= 0;
+	(void)color;
+	while (i < X_LEN)
 	{
-		man->y_len = 0;
-		while (man->y_len < Y_LEN)
+		j = 0;
+		while (j < Y_LEN)
 		{
-			if (ft_conv(man, man->x_len, man->y_len) >= INT_MAX)
+			n = ft_conv(man, i, j);
+			if (n == 50)
 			{
-				my_mlx_pixel_put(man, man->x_len, man->y_len, 0);
+				my_mlx_pixel_put(man, i, j, 0);
 			}
 			else
-				my_mlx_pixel_put(man, man->x_len, man->y_len, color);
-
-			man->y_len++;
-			printf("2\n");
+				my_mlx_pixel_put(man, i, j, color  * i / (X_LEN / 2 + Y_LEN / 2) + n);
+			j++;
 		}
-		man->x_len++;
-		printf("3\n");
+		i++;
 	}
 	mlx_put_image_to_window(man->mlx, man->win, man->img, 0, 0);
+	return (0);
+}
+
+int	set_data_man(t_data *man)
+{
+	man->ymax = 2;
+	man->ymin = -2;
+	man->xmin = -2;
+	man->xmax = 2;
 	return (0);
 }
 
@@ -41,9 +54,7 @@ int	main()
 	t_data	man;
 	int		color;
 
-	man.left = (X_LEN * -1) + (X_LEN / 2);
-	man.top = (Y_LEN / 2);
-	man.x_len = 0;
+	man.x_pos = 0;
 	color = 0x0000FF;
 	man.mlx = mlx_init();
 	man.win = mlx_new_window(man.mlx, Y_LEN, X_LEN, "Mandelbrot");
