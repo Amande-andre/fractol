@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:04:37 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/25 18:47:17 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/25 20:45:11 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main()
 	color = 0x0000FF;
 	man.h = 0;
 	man.itteration = 50;
+	man.zoom = 1;
 	man.mlx = mlx_init();
 	man.win = mlx_new_window(man.mlx, Y_LEN, X_LEN, "Mandelbrot");
 	man.img = mlx_new_image(man.mlx, Y_LEN, X_LEN);

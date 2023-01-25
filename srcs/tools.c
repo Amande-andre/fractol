@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/25 19:30:35 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/25 21:04:28 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,11 @@ int	ft_zoom(int x, int y, t_data *man)
 	x = y;
 	
 	mlx_destroy_image(man->mlx, man->img); 
-	printf("calcul tres savant%f\n\n", (man->yp / Y_LEN) * (man->ymax - man->ymin) * 0.3);
-	man->ymax += (man->yp / Y_LEN) * (man->ymax - man->ymin - 0.1) * 0.3;
-	man->ymin -=  (man->yp / Y_LEN) * (man->ymax - man->ymin - 0.1) * 0.3;
-	man->xmin -=  (man->xp / X_LEN) * (man->xmax - man->xmin - 0.1) * 0.3;
-	man->xmax +=  (man->xp / X_LEN) * (man->xmax - man->xmin - 0.1) * 0.3;	
+	man->ymax --;
+	man->xmax--;
+	man->xmin++;
+	man->ymin ++;
 	man->img = mlx_new_image(man->mlx, Y_LEN, X_LEN);
-	printf("ymax%f\nxmax%f\nxmin%f\nymin%f\n", man->ymax, man->ymin, man->xmax, man->xmin);
 	ft_print_mande(man, 0x0000FF);
 	man->itteration++;
 	return (x);
@@ -96,12 +94,26 @@ int	ft_zoom(int x, int y, t_data *man)
 
 int	ft_dezoom(int x, int y, t_data *man)
 {
-	man->yp = (double)y;
-	man->xp = (double)x;
+	x = y;
 
-	man->ymax += (man->yp / Y_LEN) * (man->ymax - man->ymin) * 0.1;
-	man->ymin -=  (man->yp / Y_LEN) * (man->ymax - man->ymin) * 0.1;
-	man->xmin -=  (man->xp / X_LEN) * (man->xmax - man->xmin) * 0.1;
-	man->xmax +=  (man->xp / X_LEN) * (man->xmax - man->xmin) * 0.1;
-	return (0);
+	mlx_destroy_image(man->mlx, man->img); 
+	man->ymax /= 0.1;
+	man->ymin += man->ymin * 0.1;
+	man->xmin -= man->xmin * 0.1;
+	man->xmax /= 0.1;
+	man->img = mlx_new_image(man->mlx, Y_LEN, X_LEN);
+	ft_print_mande(man, 0x0000FF);
+	man->itteration--;
+
+	return (x);
 }
+// int	ft_dezoom(int x, int y, t_data *man)
+// {
+// 	man->yp = (double)y;
+// 	man->xp = (double)x;
+// 	man->ymax += (man->yp / Y_LEN) * (man->ymax - man->ymin) * 0.1;
+// 	man->ymin -=  (man->yp / Y_LEN) * (man->ymax - man->ymin) * 0.1;
+// 	man->xmin -=  (man->xp / X_LEN) * (man->xmax - man->xmin) * 0.1;
+// 	man->xmax +=  (man->xp / X_LEN) * (man->xmax - man->xmin) * 0.1;
+// 	return (0);
+// }
