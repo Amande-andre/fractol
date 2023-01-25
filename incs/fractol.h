@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:05:00 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/24 17:46:13 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:17:22 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,16 @@ typedef struct	s_data {
 	int		endian;
 	void	*win;
 	void	*mlx;
-	int		x_pos;
-	int		y_pos;
+	double	x;
+	double	y;
+	int		xp;
+	int		yp;
 	double	xmin;
 	double	xmax;
 	double	ymin;
 	double	ymax;
 	double	h;
+	int		itteration;
 }				t_data;
 
 typedef struct s_comp
@@ -45,20 +48,14 @@ typedef struct s_comp
 }				t_comp;
 
 
-void	*mlx_init();
-void	*mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
-int		mlx_loop (void *mlx_ptr);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
-int		mlx_hook(void *win_ptr, int x_event, int x_mask, int (*funct)(), void *param);
-int		mlx_destroy_window(void *mlx_ptr, void *win_ptr);
-int		ft_close_win(t_data *man);
-int 	mlx_loop_end (void *mlx_ptr);
+int		ft_close_win(int key, t_data *man);
 int		ft_print_mande(t_data *man, int color);
 int		ft_conv(t_data *man, int i, int j);
 int		set_data_man(t_data *man);
-double	ft_sqr_re(double z_re, double c_re);
-double	ft_sqr_im(double z_im, double c_im);
-
+int		ft_close_win2(t_data *man);
+int		ft_zoom(int x, int y, t_data *man);
+int		ft_dezoom(int x, int y, t_data *man);
+int		ft_mouse_hook(int code, int x, int y, t_data *man);
 
 #endif
