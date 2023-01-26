@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/25 21:04:28 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/26 12:17:46 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,13 @@ int	ft_mouse_hook(int code, int x, int y, t_data *man)
 }
 int	ft_zoom(int x, int y, t_data *man)
 {
-	//printf("y===%d\nx===%d\n", man->yp, man->xp);
-	// man->yp = (double)man->y;
-	// man->xp = (double)man->x;
-	// man->yp = (double)y;
-	// man->xp = (double)x;
-	x = y;
-	
+	x = X_LEN / 3;
+	y = Y_LEN / 3;
 	mlx_destroy_image(man->mlx, man->img); 
-	man->ymax --;
-	man->xmax--;
-	man->xmin++;
-	man->ymin ++;
+	man->ymax = man->ymax / 1.1;
+	man->ymin = man->ymin / 1.1;
+	man->xmin = man->xmin / 1.1;
+	man->xmax = man->xmax / 1.1;
 	man->img = mlx_new_image(man->mlx, Y_LEN, X_LEN);
 	ft_print_mande(man, 0x0000FF);
 	man->itteration++;
@@ -97,23 +92,14 @@ int	ft_dezoom(int x, int y, t_data *man)
 	x = y;
 
 	mlx_destroy_image(man->mlx, man->img); 
-	man->ymax /= 0.1;
-	man->ymin += man->ymin * 0.1;
-	man->xmin -= man->xmin * 0.1;
-	man->xmax /= 0.1;
+	man->ymax = man->ymax * 1.1;
+	man->ymin = man->ymin * 1.1;
+	man->xmin = man->xmin * 1.1;
+	man->xmax = man->xmax * 1.1;
 	man->img = mlx_new_image(man->mlx, Y_LEN, X_LEN);
-	ft_print_mande(man, 0x0000FF);
 	man->itteration--;
-
+	
+	ft_print_mande(man, 0x0000FF);
 	return (x);
 }
-// int	ft_dezoom(int x, int y, t_data *man)
-// {
-// 	man->yp = (double)y;
-// 	man->xp = (double)x;
-// 	man->ymax += (man->yp / Y_LEN) * (man->ymax - man->ymin) * 0.1;
-// 	man->ymin -=  (man->yp / Y_LEN) * (man->ymax - man->ymin) * 0.1;
-// 	man->xmin -=  (man->xp / X_LEN) * (man->xmax - man->xmin) * 0.1;
-// 	man->xmax +=  (man->xp / X_LEN) * (man->xmax - man->xmin) * 0.1;
-// 	return (0);
-// }
+
