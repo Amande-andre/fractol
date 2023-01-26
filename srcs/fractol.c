@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:04:37 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/26 12:19:26 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:36:31 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int	set_data_man(t_data *man)
 	man->ymin = -2;
 	man->xmin = -2;
 	man->xmax = 2;
+	man->mvx = 0;
+	man->mvy = 0;
+	// man->x = 0;
+	// man->y = 0;
 	return (0);
 }
 
@@ -63,7 +67,8 @@ int	main()
 	ft_print_mande(&man, color);
 	mlx_hook(man.win, 17, 0, ft_close_win2, &man);
 	mlx_hook(man.win, KeyPress, KeyPressMask, ft_close_win, &man);
-	mlx_mouse_get_pos(man.mlx, man.win, (int)man.x, (int)man.y);
+	//mlx_mouse_get_pos(man.mlx, man.win, (int)man.x, (int)make
+	//man.y);
 	mlx_mouse_hook(man.win, ft_mouse_hook, &man);
 	mlx_loop(man.mlx);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:05:00 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/25 20:44:39 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:35:49 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct	s_data {
 	double	h;
 	int		itteration;
 	int		zoom;
+	double	mvx;
+	double	mvy;
 }				t_data;
 
 typedef struct s_comp

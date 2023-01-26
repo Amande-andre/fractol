@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/26 12:17:46 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:47:01 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int	ft_conv(t_data *man, int i, int j)
 	z.re = 0;
 	z.im = 0;
 	//ici me permet de mettre mom pixel dans un plan orthonorme
-	c.re = man->xmin + i * (man->xmax - man->xmin) / X_LEN;
-	c.im = man->ymin + j * (man->ymax - man->ymin) / Y_LEN;
+	c.re = man->xmin + i * (man->xmax - man->xmin) / X_LEN + man->mvx;
+	c.im = man->ymin + j * (man->ymax - man->ymin) / Y_LEN + man->mvy;	//>>>c est icique 
+																		//ca se passe pour changer de dirrection
 	n = 0;
 	while ((z.re * z.re + z.im * z.im) <= 2 && n < man->itteration)
 	{
@@ -81,7 +82,11 @@ int	ft_zoom(int x, int y, t_data *man)
 	man->ymin = man->ymin / 1.1;
 	man->xmin = man->xmin / 1.1;
 	man->xmax = man->xmax / 1.1;
+	man->zoom = man->zoom * 1.1;
 	man->img = mlx_new_image(man->mlx, Y_LEN, X_LEN);
+	
+	man->mvx = man->mvx + man->zoom;
+	man->mvy = man->mvy + man->zoom;
 	ft_print_mande(man, 0x0000FF);
 	man->itteration++;
 	return (x);
