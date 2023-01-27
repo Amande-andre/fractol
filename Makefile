@@ -6,7 +6,7 @@
 #    By: anmande <anmande@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 16:47:31 by anmande           #+#    #+#              #
-#    Updated: 2023/01/18 18:30:40 by anmande          ###   ########.fr        #
+#    Updated: 2023/01/27 20:14:20 by anmande          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ OBJSDIR	= objs
 INCSDIR	= incs
 LIBDIR	= libft
 
-_SRCS	= fractol.c tools.c
+_SRCS	= fractol.c tools.c move.c
 SRCS	= $(addprefix $(SRCSDIR)/, $(_SRCS))
 OBJS	= $(SRCS:$(SRCSDIR)%.c=$(OBJSDIR)%.o)
 HEADER = $(addprefix $(INCSDIR)/, $(NAME).h)
