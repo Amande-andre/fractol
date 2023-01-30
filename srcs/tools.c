@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/30 18:57:15 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/30 20:15:01 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,31 +105,33 @@ int	ft_zoom(int x, int y, t_data *man)
 	//printf("xminBC=%f\nyminBC=%f\ndelta==%f\nposi==%f\n", man->xmin, man->ymin, man->delta, xp);
 	//xp = man->xp / X_LEN + (man->xmax - man->xmin) + man->xmin;
 	//yp = man->yp / Y_LEN + (man->ymax - man->ymin) + man->ymin;
-	//printf("55\nxminBC=%f\nxmaxBC=%f\ndelta==%f\nxposi==%f\n", man->xmin, man->xmax, xdelta, xp);
 	xp = ((double)man->xp / (X_LEN / xdelta)) + man->xmin;
-	yp = (((double)man->yp / (Y_LEN / ydelta)) - man->ymax);
+	yp = (((double)man->yp / (Y_LEN / ydelta)) - man->ymax) * -1;
 	printf("xp==%f\nyp==%f\n", xp, yp);
+	printf("\nyminBC=%f\nymaxBC=%f\nyp=%f\n", man->ymin, man->ymax, yp);
+
 	if (xp > 0)
 	{
-		man->xmin -= xdelta * 0.05;
-		man->xmax -= xdelta * 0.05;
+		man->xmin -= xdelta * 0.05 + xp;
+		man->xmax -= xdelta * 0.05 + xp;
 	}
 	else
 	{
-		man->xmin += xdelta * 0.05;
-		man->xmax += xdelta * 0.05;
+		man->xmin += xp * 0.5 * -1;
+		man->xmax += xp * 0.5 * -1;
 	}
 	if (yp > 0)
 	{
-		man->ymin += ydelta * 0.05;
-		man->ymax += ydelta * 0.05;
+		man->ymin -= yp;
+		man->ymax -= yp;
 	}
 	else
 	{
-		man->ymin -= ydelta * 0.05;
-		man->ymax -= ydelta * 0.05;
+		man->ymin -= yp;
+		man->ymax -= yp;
 	}
-
+ 
+	printf("55\nyminAC=%f\nymaxAC=%f\ndelta==%f\nxposi==%f\n", man->ymin, man->ymax, xdelta, xp);
 	
 	
 	// man->ymax -= ((ydelta) + yp);
