@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/30 18:34:43 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/30 18:57:15 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ int	ft_mouse_hook(int code, int x, int y, t_data *man)
 
 int	ft_zoom(int x, int y, t_data *man)
 {
-	//float	xdelta;
-	//float	ydelta;
-	// float	xp;
-	// float	yp;
+	float	xdelta;
+	float	ydelta;
+	float	xp;
+	float	yp;
 	x = X_LEN / 3;
 	y = Y_LEN / 3;
-	// xdelta = (man->xmax - man->xmin);
-	// ydelta = (man->ymax - man->ymin);
+	xdelta = (man->xmax - man->xmin);
+	ydelta = (man->ymax - man->ymin);
 	//xp = 0;
 	mlx_destroy_image(man->mlx, man->img);
 	mlx_mouse_get_pos(man->mlx, man->win, &man->xp, &man->yp);
@@ -106,16 +106,40 @@ int	ft_zoom(int x, int y, t_data *man)
 	//xp = man->xp / X_LEN + (man->xmax - man->xmin) + man->xmin;
 	//yp = man->yp / Y_LEN + (man->ymax - man->ymin) + man->ymin;
 	//printf("55\nxminBC=%f\nxmaxBC=%f\ndelta==%f\nxposi==%f\n", man->xmin, man->xmax, xdelta, xp);
-	// xp = ((double)man->xp / (X_LEN / xdelta)) /*+ man->xmin*/;
-	// yp = ((double)man->yp / (Y_LEN / ydelta))/**/ * -1 /*+ man->ymax*/;
-	// man->ymax = ((ydelta) + yp);
-	// man->ymin = ((ydelta) - yp);
-	// man->xmin = ((xdelta) - xp);
-	// man->xmax = ((xdelta) + xp);
-	man->ymax = (man->ymax * man->zoom);
-	man->ymin = (man->ymin * man->zoom);
-	man->xmin = (man->xmin * man->zoom);
-	man->xmax = (man->xmax * man->zoom);
+	xp = ((double)man->xp / (X_LEN / xdelta)) + man->xmin;
+	yp = (((double)man->yp / (Y_LEN / ydelta)) - man->ymax);
+	printf("xp==%f\nyp==%f\n", xp, yp);
+	if (xp > 0)
+	{
+		man->xmin -= xdelta * 0.05;
+		man->xmax -= xdelta * 0.05;
+	}
+	else
+	{
+		man->xmin += xdelta * 0.05;
+		man->xmax += xdelta * 0.05;
+	}
+	if (yp > 0)
+	{
+		man->ymin += ydelta * 0.05;
+		man->ymax += ydelta * 0.05;
+	}
+	else
+	{
+		man->ymin -= ydelta * 0.05;
+		man->ymax -= ydelta * 0.05;
+	}
+
+	
+	
+	// man->ymax -= ((ydelta) + yp);
+	// man->ymin -= ((ydelta) - yp);
+	// man->xmin -= ((xdelta) - xp);
+	// man->xmax -= ((xdelta) + xp);
+	// man->ymax = (man->ymax * man->zoom);
+	// man->ymin = (man->ymin * man->zoom);
+	// man->xmin = (man->xmin * man->zoom);
+	// man->xmax = (man->xmax * man->zoom);
 	//printf("2\nxminBC=%f\nxmaxBC=%f\ndelta==%f\nxposi==%f\n", man->xmin, man->xmax, xdelta, xp);
 
 	man->img = mlx_new_image(man->mlx, Y_LEN, X_LEN);
