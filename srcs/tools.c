@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/27 21:02:58 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/30 11:02:36 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ int	ft_zoom(int x, int y, t_data *man)
 	mlx_destroy_image(man->mlx, man->img); 
 	mlx_mouse_get_pos(man->mlx, man->win, &man->xp, &man->yp);
 	printf("xminBC=%f\nyminBC=%f\ndelta==%f\nposi==%f\n", man->xmin, man->ymin, man->delta, (double)man->xp / X_LEN);
-	man->xmin = (((double)man->xp * man->delta) / X_LEN) - man->delta;
-	man->ymin = ((double)man->yp / Y_LEN) - man->delta;
-	man->xmax = man->delta - ((double)man->xp / X_LEN);
-	man->ymax = man->delta - ((double)man->yp / Y_LEN);
+	man->xmin = ((double)man->xp / X_LEN) - (man->xmax - man->xmin) / 2;
+	man->ymin = ((double)man->yp / Y_LEN) - (man->ymax - man->ymin) / 2;
+	man->xmax = ((double)man->xp / X_LEN) + (man->xmax - man->xmin) / 2;
+	man->ymax = ((double)man->yp / Y_LEN) + (man->ymax - man->ymin) / 2;
 	// man->ymax = (man->ymax * man->zoom);
 	// man->ymin = (man->ymin * man->zoom);
 	// man->xmin = (man->xmin * man->zoom);
