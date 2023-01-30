@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:04:37 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/27 20:04:00 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/30 18:33:58 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main()
 	man.zoom = 0.9;
 	man.xp = 0;
 	man.yp = 0;
+	man.h = 0;
 	man.mlx = mlx_init();
 	man.win = mlx_new_window(man.mlx, Y_LEN, X_LEN, "Mandelbrot");
 	man.img = mlx_new_image(man.mlx, Y_LEN, X_LEN);
@@ -64,6 +65,7 @@ int	main()
 	ft_print_mande(&man, color);
 	mlx_hook(man.win, 17, 0, ft_close_win2, &man);
 	mlx_hook(man.win, KeyPress, KeyPressMask, ft_close_win, &man);
+	mlx_key_hook(man.win, ft_move, &man);
 	mlx_mouse_get_pos(man.mlx, man.win, &man.xp, &man.yp);
 	mlx_mouse_hook(man.win, ft_mouse_hook, &man);
 	mlx_loop(man.mlx);

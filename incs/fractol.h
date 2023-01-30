@@ -6,12 +6,12 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:05:00 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/27 20:31:43 by anmande          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:21:01 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
-#define Y_LEN		1600
+#define Y_LEN		1000
 #define X_LEN		(Y_LEN)
 # define PRESS_ARROW_UP 65362
 # define PRESS_ARROW_DOWN 65364
@@ -62,6 +62,5 @@ int		ft_close_win2(t_data *man);
 int		ft_zoom(int x, int y, t_data *man);
 int		ft_dezoom(int x, int y, t_data *man);
 int		ft_mouse_hook(int code, int x, int y, t_data *man);
-int		ft_up(t_data *man);
-
+int	ft_move(int key, t_data *man);
 #endif
