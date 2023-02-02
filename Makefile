@@ -6,7 +6,7 @@
 #    By: anmande <anmande@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 16:47:31 by anmande           #+#    #+#              #
-#    Updated: 2023/01/30 17:04:28 by anmande          ###   ########.fr        #
+#    Updated: 2023/02/02 18:19:52 by anmande          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,11 @@ END	= \033[0m
 ##### Names #####
 NAME	= fractol
 LIBNAME	= libft.a
+BONUSH = bonus.h
 MLX_DIR = mlx_linux
 MLX_PATH = ./mlx_linux/libmlx.a
 CC	= cc
-CFLAGS	= -Wall -Werror -Wextra -g3 -g -Iminilibx-linux
+CFLAGS	= -Wall -Werror -Wextra -g -Iminilibx-linux
 MFLAGS = $(MLX_PATH) -lXext -lX11
 MLX_MAKE = Makefile
 
@@ -43,16 +44,19 @@ OBJSDIR	= objs
 INCSDIR	= incs
 LIBDIR	= libft
 
-_SRCS	= fractol.c tools.c move.c
+_SRCS	= fractol.c tools.c move.c julia.c param.c
+_SRCSBONUS = bonus.c
 SRCS	= $(addprefix $(SRCSDIR)/, $(_SRCS))
 OBJS	= $(SRCS:$(SRCSDIR)%.c=$(OBJSDIR)%.o)
 HEADER = $(addprefix $(INCSDIR)/, $(NAME).h)
+SRCSBONUS	= $(addprefix $(SRCSDIR)/, $(_SRCSBONUS))
+HEADERBONUS = $(addprefix $(INCSDIR)/, $(BONUSH).h)
 
 ##### Makefile work ####
 
 $(OBJSDIR)/%.o:$(SRCSDIR)/%.c $(HEADER)
 	@mkdir -p $(OBJSDIR)
-	$(CC) -c $(CFLAGS) -I$(INCSDIR) -I$(LIBDIR) -I$(MLX_LINUX) -Imlx_linux -O3 -c $< -o $@
+	$(CC) -c $(CFLAGS) -I$(LIBDIR) -I$(INCSDIR) -I$(MLX_LINUX) -Imlx_linux -c $< -o $@
 
 all: $(NAME)
 
@@ -64,6 +68,12 @@ $(NAME): $(OBJS) $(HEADER) $(MLX_PATH)
 	@$(CC) -I$(INCSDIR) -I$(LIBDIR) $(OBJS) -o $(NAME) $(MFLAGS)
 	@echo "$(GREEN)OK!$(END)"
 	@echo "$(BLUE)READY !$(END)"
+
+bonus:
+	$(OBJSDIR)/%.o:$(SRCSBONUS)/%.c $(HEADERBONUS)
+	@mkdir -p $(OBJSDIR)
+	$(CC) -c $(CFLAGS) -I$(LIBDIR) -I$(INCSDIR) -I$(MLX_LINUX) -Imlx_linux -c $< -o $@
+	$(CC) -I$(INCSDIR) -I$(LIBDIR) $(OBJS) -o $(NAME) $(MFLAGS)
 
 $(MLX_PATH):
 	make -C ${MLX_DIR}
@@ -84,5 +94,6 @@ fclean: clean
 	@echo "$(BLUE)Everything is clean!$(END)"
 
 re:	fclean all
+
 
 .PHONY: all clean fclean re

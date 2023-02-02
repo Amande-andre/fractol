@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/01/30 20:15:01 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/02 17:00:22 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	ft_close_win(int key, t_data *man)
+int	ft_close_win(int key, t_data *f)
 {
 	if (key == XK_Escape || key == 17)
     {
-		mlx_destroy_window(man->mlx, man->win);
+		mlx_destroy_window(f->mlx, f->win);
 		exit (0);
 	}
 	return (0);
 }
 
-int	ft_close_win2(t_data *man)
+int	ft_close_win2(t_data *f)
 {
-	mlx_destroy_window(man->mlx, man->win);
+	mlx_destroy_window(f->mlx, f->win);
 	exit (0);
 }
-int	ft_conv(t_data *man, double i, double j)
+int	ft_conv(t_data *f, double i, double j)
 {
 	t_comp	z;
 	t_comp	c;
@@ -48,22 +48,10 @@ int	ft_conv(t_data *man, double i, double j)
 	z.re = 0;
 	z.im = 0;
 
-	// if (man->zoom == 1)
-	// {	
-	
-		c.re = man->xmin + i * (man->xmax - man->xmin) / X_LEN;
-	 	c.im = man->ymin + j * (man->ymax - man->ymin) / Y_LEN;
-		// c.re = man->xmin + i * (double)man->xp / X_LEN;
-		// c.im = man->ymin + j * (double)man->yp / Y_LEN;
-	//}
-	// else
-	// {
-	// 	c.re = man->xmin * 0.1 + i * (man->xmax - man->xmin) / X_LEN;
-	// 	c.im = man->ymin * 0.1 + j * (man->ymax - man->ymin) / Y_LEN;
-	// }
-	
+	c.re = f->xmin + i * (f->xmax - f->xmin) / X_LEN;
+ 	c.im = f->ymin + j * (f->ymax - f->ymin) / Y_LEN;
 	n = 0;
-	while ((z.re * z.re + z.im * z.im) <= 2 && n < man->itteration)
+	while (z.re * z.re + z.im * z.im <= (double)4 && n < f->itteration)
 	{
 		tmp.im = 2 * z.re * z.im + c.im;
 		tmp.re = z.re * z.re - z.im * z.im + c.re;
@@ -74,22 +62,16 @@ int	ft_conv(t_data *man, double i, double j)
 	return (n);
 }
 
-int	ft_mouse_hook(int code, int x, int y, t_data *man)
+int	ft_mouse_hook(int code, int x, int y, t_data *f)
 {
 	if (code == 4 || code == 1)
-		ft_zoom(x, y, man);
-	else if ((code == 5 || code == 2) && man->h >= 0)
-		ft_dezoom(x, y, man);
-	// else if (code == PRESS_ARROW_DOWN)
-	// 	ft_down();
-	// else if (code == PRESS_ARROW_LEFT)
-	// 	ft_left();
-	// else if (code == PRESS_ARROW_RIGHT)
-	// 	ft_right();
+		ft_zoom(x, y, f);
+	else if ((code == 5 || code == 2) && f->h >= 0)
+		ft_dezoom(x, y, f);
 	return (1);
 }
 
-int	ft_zoom(int x, int y, t_data *man)
+int	ft_zoom(int x, int y, t_data *f)
 {
 	float	xdelta;
 	float	ydelta;
@@ -97,76 +79,57 @@ int	ft_zoom(int x, int y, t_data *man)
 	float	yp;
 	x = X_LEN / 3;
 	y = Y_LEN / 3;
-	xdelta = (man->xmax - man->xmin);
-	ydelta = (man->ymax - man->ymin);
-	//xp = 0;
-	mlx_destroy_image(man->mlx, man->img);
-	mlx_mouse_get_pos(man->mlx, man->win, &man->xp, &man->yp);
-	//printf("xminBC=%f\nyminBC=%f\ndelta==%f\nposi==%f\n", man->xmin, man->ymin, man->delta, xp);
-	//xp = man->xp / X_LEN + (man->xmax - man->xmin) + man->xmin;
-	//yp = man->yp / Y_LEN + (man->ymax - man->ymin) + man->ymin;
-	xp = ((double)man->xp / (X_LEN / xdelta)) + man->xmin;
-	yp = (((double)man->yp / (Y_LEN / ydelta)) - man->ymax) * -1;
-	printf("xp==%f\nyp==%f\n", xp, yp);
-	printf("\nyminBC=%f\nymaxBC=%f\nyp=%f\n", man->ymin, man->ymax, yp);
-
+	xdelta = (f->xmax - f->xmin);
+	ydelta = (f->ymax - f->ymin);
+	mlx_destroy_image(f->mlx, f->img);
+	mlx_mouse_get_pos(f->mlx, f->win, &f->xp, &f->yp);
+	xp = ((double)f->xp / (X_LEN / xdelta)) + f->xmin;
+	yp = (((double)f->yp / (Y_LEN / ydelta)) - f->ymax) * -1;
 	if (xp > 0)
 	{
-		man->xmin -= xdelta * 0.05 + xp;
-		man->xmax -= xdelta * 0.05 + xp;
+		f->xmin -= xdelta * 0.05 + xp;
+		f->xmax -= xdelta * 0.05 + xp;
 	}
 	else
 	{
-		man->xmin += xp * 0.5 * -1;
-		man->xmax += xp * 0.5 * -1;
+		f->xmin += xp * 0.5 * -1;
+		f->xmax += xp * 0.5 * -1;
 	}
-	if (yp > 0)
+	if (yp >= 0)
 	{
-		man->ymin -= yp;
-		man->ymax -= yp;
+		f->ymin -=  1.5 * yp;
+		f->ymax -=  1.5 * yp;
 	}
 	else
 	{
-		man->ymin -= yp;
-		man->ymax -= yp;
+		f->ymin -= yp * 1.5;
+		f->ymax -= yp * 1.5;
 	}
- 
-	printf("55\nyminAC=%f\nymaxAC=%f\ndelta==%f\nxposi==%f\n", man->ymin, man->ymax, xdelta, xp);
-	
-	
-	// man->ymax -= ((ydelta) + yp);
-	// man->ymin -= ((ydelta) - yp);
-	// man->xmin -= ((xdelta) - xp);
-	// man->xmax -= ((xdelta) + xp);
-	// man->ymax = (man->ymax * man->zoom);
-	// man->ymin = (man->ymin * man->zoom);
-	// man->xmin = (man->xmin * man->zoom);
-	// man->xmax = (man->xmax * man->zoom);
-	//printf("2\nxminBC=%f\nxmaxBC=%f\ndelta==%f\nxposi==%f\n", man->xmin, man->xmax, xdelta, xp);
-
-	man->img = mlx_new_image(man->mlx, Y_LEN, X_LEN);
-	//printf("xminAC=%f\nyminAC=%f\n", man->xmin, man->ymin);
-	man->h++;
-	man->itteration++;
-	ft_print_mande(man, 0x0000FF);
+	f->ymax = (f->ymax * f->zoom);
+	f->ymin = (f->ymin * f->zoom);
+	f->xmin = (f->xmin * f->zoom);
+	f->xmax = (f->xmax * f->zoom);
+	f->img = mlx_new_image(f->mlx, Y_LEN, X_LEN);
+	f->h++;
+	f->itteration++;
+	ft_print_mande(f);
 	return (x);
 }
 
-int	ft_dezoom(int x, int y, t_data *man)
+int	ft_dezoom(int x, int y, t_data *f)
 {
 	x = X_LEN / 3;
 	y = Y_LEN / 3;
-	mlx_destroy_image(man->mlx, man->img); 
-	mlx_mouse_get_pos(man->mlx, man->win, &man->xp, &man->yp);
-	man->ymax = man->ymax * 1.1;
-	man->ymin = man->ymin * 1.1;
-	man->xmin = man->xmin * 1.1;
-	man->xmax = man->xmax * 1.1;
-	man->img = mlx_new_image(man->mlx, Y_LEN, X_LEN);
-	//printf("xp=%d\nyp=%d\n", man->xp, man->yp);
-	if (man->itteration > 50)
-		man->itteration--;
-	man->h--;
-	ft_print_mande(man, 0x0000FF);
+	mlx_destroy_image(f->mlx, f->img); 
+	mlx_mouse_get_pos(f->mlx, f->win, &f->xp, &f->yp);
+	f->ymax = f->ymax * 1.1;
+	f->ymin = f->ymin * 1.1;
+	f->xmin = f->xmin * 1.1;
+	f->xmax = f->xmax * 1.1;
+	f->img = mlx_new_image(f->mlx, Y_LEN, X_LEN);
+	if (f->itteration > 50)
+		f->itteration--;
+	f->h--;
+	ft_print_mande(f);
 	return (x);
 }
