@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:04:37 by anmande           #+#    #+#             */
-/*   Updated: 2023/02/06 13:31:32 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/06 10:51:22 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,54 +62,33 @@ int	set_data_man(t_data *f)
 	return (0);
 }
 
-int	ft_atoi(const char *nptr)
-{
-	int			i;
-	long int	n;
-	int			sign;
-
-	i = 0;
-	n = 0;
-	sign = 1;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (ft_isdigit(nptr[i]))
-	{
-		n = n * 10 + nptr[i] - '0';
-		i++;
-	}
-	return (n * sign);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c < '0' || c > '9')
-		return (0);
-	return (2048);
-}
-
 int	main(int ac, char **av)
 {
 	t_data	f;
 
-	set_data_man(&f);
-	if (ft_param(&f, av, ac) == 1)
+	if (ac == 1)
 	{
-		ft_close_win2(&f);
+		printf("You can us \"Mandelbrot\"as parameter\n");
+		printf("You can us \"Julia\"as parameter\n");
+		return (1);
+	}
+	set_data_man(&f);
+	if (ft_param(&f, av) == 1)
 		return (0);
-	}	
 	mlx_hook(f.win, 17, 0, ft_close_win2, &f);
 	mlx_hook(f.win, KeyPress, KeyPressMask, ft_close_win, &f);
 	mlx_key_hook(f.win, ft_move, &f);
 	mlx_mouse_get_pos(f.mlx, f.win, &f.xp, &f.yp);
 	mlx_mouse_hook(f.win, ft_mouse_hook, &f);
 	mlx_loop(f.mlx);
+	mlx_destroy_display(f.mlx);
+	mlx_destroy_image(f.mlx, f.img);
+	mlx_destroy_window(f.mlx, f.win);
+	mlx_clear_window(f.mlx, f.win);
+	free (f.addr);
+	free (f.win);
+	free (f.img);
+	free (f.mlx);
 	return (0);
 }
 

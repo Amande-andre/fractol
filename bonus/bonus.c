@@ -6,9 +6,11 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:32:37 by anmande           #+#    #+#             */
-/*   Updated: 2023/02/02 18:02:58 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/04 17:48:23 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "bonus.h"
 
 int	ft_julia_loop(t_data *f)
 {
@@ -19,9 +21,30 @@ int	ft_julia_loop(t_data *f)
 		while (f->c.im < 1)
 		{
 			f->c.im += 0.2;
-			ft_print_julia(f, color);
+			ft_print_julia(f, f->color);
 		}
 		f->c.im = -1.1;
 	}
 	return (0);
 }
+
+	// if (xp > 0)
+	// {
+	// 	f->xmin -= xdelta * 0.05 + xp;
+	// 	f->xmax -= xdelta * 0.05 + xp;
+	// }
+	// else
+	// {
+	// 	f->xmin += xp * 0.5 * -1;
+	// 	f->xmax += xp * 0.5 * -1;
+	// }
+	// if (yp >= 0)
+	// {
+	// 	f->ymin -=  1.5 * yp;
+	// 	f->ymax -=  1.5 * yp;
+	// }
+	// else
+	// {
+	// 	f->ymin -= yp * 1.5;
+	// 	f->ymax -= yp * 1.5;
+	// }

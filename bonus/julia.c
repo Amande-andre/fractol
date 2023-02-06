@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:29:16 by anmande           #+#    #+#             */
-/*   Updated: 2023/02/06 13:29:18 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/06 10:51:20 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,22 @@ int	ft_julia_param(t_data *f, char *av)
 {
 	if (av == NULL)
 	{
-		write(1, "use Julia 1 or Julia 2 as paramter", 35);
+		printf("use Julia 1 or Julia 2 as paramter");
 		return (1);
 	}	
-	if (ft_atoi(av) == 1)
+	if (atoi(av) == 1)
 	{
 		f->c.im = -0.85;
 		f->c.re = -0.301;
 	}
-	else if (ft_atoi(av) == 2)
+	else if (atoi(av) == 2)
 	{
 		f->c.im = -0.8;
 		f->c.re = 0.156;
 	}
 	else
 	{
-		write(1, "use Julia 1 or Julia 2 as paramter", 35);
+		printf("use Julia 1 or Julia 2 as paramter");
 		return (1);
 	}
 	f->set = 2;
