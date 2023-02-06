@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 20:07:28 by anmande           #+#    #+#             */
-/*   Updated: 2023/02/06 10:47:49 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/06 14:42:15 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_move(int key, t_data *f)
 	return (0);
 }
 
-int	ft_move_man(int key, t_data *f, int deltax, int deltay)
+int	ft_move_man(int key, t_data *f, float deltax, float deltay)
 {
 	if (key == PRESS_ARROW_LEFT)
 	{

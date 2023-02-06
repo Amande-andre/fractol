@@ -6,11 +6,11 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:29:16 by anmande           #+#    #+#             */
-/*   Updated: 2023/02/06 10:51:20 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/06 16:14:31 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fractol.h"
+#include "../bonus_inc/fractol_bonus.h"
 
 int	ft_print_julia(t_data *f)
 {
@@ -42,27 +42,39 @@ int	ft_julia_param(t_data *f, char *av)
 {
 	if (av == NULL)
 	{
-		printf("use Julia 1 or Julia 2 as paramter");
+		write(1, "use Julia 1 or Julia 2 as paramteR", 35);
 		return (1);
 	}	
-	if (atoi(av) == 1)
+	if (ft_julia_set(f, av) == 1)
 	{
-		f->c.im = -0.85;
-		f->c.re = -0.301;
-	}
-	else if (atoi(av) == 2)
-	{
-		f->c.im = -0.8;
-		f->c.re = 0.156;
-	}
-	else
-	{
-		printf("use Julia 1 or Julia 2 as paramter");
+		write(1, "use Julia 1 or Julia 2 as paramteR", 35);
 		return (1);
 	}
 	f->set = 2;
 	ft_print(f);
 	return (0);
+}
+
+int	ft_julia_set(t_data *f, char *av)
+{
+	if (ft_atoi(av) == 1)
+	{
+		f->c.im = -0.85;
+		f->c.re = -0.301;
+		return (0);
+	}
+	else if (ft_atoi(av) == 2)
+	{
+		f->c.im = -0.8;
+		f->c.re = 0.156;
+		return (0);
+	}
+	else if (ft_atoi(av) == 3)
+	{
+		ft_julia_loop(f);
+		return (0);
+	}
+	return (1);
 }
 
 int	ft_conv_julia(t_data *f, double i, double j)

@@ -6,11 +6,11 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 18:30:30 by anmande           #+#    #+#             */
-/*   Updated: 2023/02/06 10:51:05 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/06 14:17:54 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fractol.h"
+#include "../bonus_inc/fractol_bonus.h"
 
 int	ft_conv(t_data *f, double i, double j)
 {
@@ -18,7 +18,7 @@ int	ft_conv(t_data *f, double i, double j)
 	t_comp	c;
 	int		n;
 	t_comp	tmp;
-	
+
 	n = 0;
 	z.re = 0;
 	z.im = 0;
@@ -59,7 +59,6 @@ int	ft_zoom(int x, int y, t_data *f)
 	x = y;
 	xdelta = (f->xmax - f->xmin);
 	ydelta = (f->ymax - f->ymin);
-	mlx_mouse_get_pos(f->mlx, f->win, &f->xp, &f->yp);
 	xp = ((double)f->xp / (X_LEN / xdelta)) + f->xmin;
 	yp = (((double)f->yp / (Y_LEN / ydelta)) - f->ymax) * -1;
 	f->ymax = (f->ymax * f->zoom);

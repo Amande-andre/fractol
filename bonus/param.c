@@ -6,22 +6,28 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:38:23 by anmande           #+#    #+#             */
-/*   Updated: 2023/02/06 10:51:12 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/06 14:17:47 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fractol.h"
+#include "../bonus_inc/fractol_bonus.h"
 
-int	ft_param(t_data *f, char **av)
+int	ft_param(t_data *f, char **av, int ac)
 {
+	if (ac == 1)
+	{
+		write(1, "You can us \"Mandelbrot\"as parameter\n", 37);
+		write(1, "You can us \"Julia\"as parameter\n", 32);
+		return (1);
+	}
 	if (ft_strcmp(av[1], "Mandelbrot") == 0)
 		ft_print_mande(f);
 	else if (ft_strcmp(av[1], "Julia") == 0)
 		return (ft_julia_param(f, av[2]));
 	else
 	{
-		printf("You can us \"Mandelbrot\"as parameter\n");
-		printf("You can us \"Julia\"as parameter\n");
+		write(1, "You can us \"Mandelbrot\"as parameter\n", 37);
+		write(1, "You can us \"Julia\"as parameter\n", 32);
 		return (1);
 	}
 	return (0);
