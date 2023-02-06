@@ -6,7 +6,7 @@
 /*   By: anmande <anmande@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:29:16 by anmande           #+#    #+#             */
-/*   Updated: 2023/02/06 15:48:51 by anmande          ###   ########.fr       */
+/*   Updated: 2023/02/06 20:13:30 by anmande          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	ft_julia_param(t_data *f, char *av)
 	}
 	else if (ft_atoi(av) == 2)
 	{
-		f->c.im = -0.8;
-		f->c.re = 0.156;
+		f->c.im = 0.008;
+		f->c.re = -0.79545;
 	}
 	else
 	{
